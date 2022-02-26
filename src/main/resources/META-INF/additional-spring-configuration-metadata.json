@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "org.gradle.daemon",
+      "type": "java.lang.String",
+      "description": "Description for org.gradle.daemon."
+  }
+] }
