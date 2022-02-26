@@ -1,12 +1,14 @@
 package com.example.kopringdemo.service
 
 import com.example.kopringdemo.domain.posts.PostsRepository
+import com.example.kopringdemo.web.dto.PostsMainResponseDto
 import com.example.kopringdemo.web.dto.PostsSaveRequestDto
+import com.example.kopringdemo.web.dto.toPostsMainResponseDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class PostsService (
+class PostsService(
     private val postsRepository: PostsRepository
 ) {
 
@@ -21,6 +23,11 @@ class PostsService (
     @Transactional
     fun save(dto: PostsSaveRequestDto): Long { // Service층에서는 Entity를 바로 받지 않고 DTO를 받아 저장한다.
         return postsRepository.save(dto.toEntity()).id
+    }
+
+    @Transactional(readOnly = true)
+    fun findAllDesc(): List<PostsMainResponseDto> {
+      return postsRepository.findAllDesc().map { it.toPostsMainResponseDto() }.toList()
     }
 
 }
